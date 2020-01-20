@@ -1,0 +1,35 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+	  "name": "client",
+	  "image": "alexanderpo/multi-client",
+	  "hostname": "client",
+	  "essential": false
+	},
+    {
+	  "name": "server",
+	  "image": "alexanderpo/multi-server",
+	  "hostname": "api",
+	  "essential": false
+	},
+    {
+	  "name": "worker",
+	  "image": "alexanderpo/multi-worker",
+	  "hostname": "worker",
+	  "essential": false
+	},
+    {
+	  "name": "nginx",
+	  "image": "alexanderpo/multi-nginx",
+	  "essential": true,
+	  "postMappings": [
+	    {
+		  "hostPort": 80,
+		  "containerPort": 80
+		}
+	  ],
+	  "links": ["client", "server"]
+	}
+  ]
+}
